@@ -34,7 +34,7 @@ AudioFormat/
 
 2. **PySimpleGUI 4.60.5**
     - PySimpleGUI需要低版本，高版本收费，无法直接使用
-    - 可以直接解压 `source/PySimpleGUI-4.60.5.7z`，然后进入文件目录执行：
+    - 可以直接解压 `resource/PySimpleGUI-4.60.5.7z`，然后进入文件目录执行：
       ```bash
       python setup.py install
       ```
@@ -42,6 +42,7 @@ AudioFormat/
       ```bash
       pip install setuptools
       ```
+3. resource中有ffprobe.7z压缩包,解压后有ffprobe.exe
 
 3. **PyInstaller（可选，用于打包）**
     - 如需打包成exe文件，安装pyinstaller：
@@ -61,17 +62,7 @@ AudioFormat/
 
 ### 打包成可执行文件
 
-#### 方法1：使用批处理脚本（推荐）
-在Windows系统上，双击运行 `build.bat` 或在命令行执行：
-```bash
-build.bat
-```
-
-#### 方法2：直接使用spec文件
-```bash
-pyinstaller AudioAnalyzer.spec
-```
-
+在Windows系统上，运行 `build.bat` 
 打包完成后，可执行文件位于 `dist/AudioAnalyzer.exe`
 
 **注意**：ffprobe.exe已经打包到可执行文件中，无需额外复制
@@ -83,26 +74,3 @@ pyinstaller AudioAnalyzer.spec
 3. 程序将显示音频的详细信息
 4. 点击"清除结果"可以清空当前显示的信息
 5. 点击"退出"关闭程序
-
-## 技术架构
-
-- **前端界面**：PySimpleGUI - 轻量级Python GUI框架
-- **音频分析**：FFprobe - FFmpeg的音频分析工具
-- **代码架构**：采用模块化设计，前端与后端逻辑分离
-
-## 打包说明
-
-项目使用 `.spec` 配置文件进行打包，具有以下特点：
-
-1. **单文件打包**：所有依赖（包括ffprobe.exe）都打包到一个exe文件中
-2. **无控制台窗口**：打包后的程序运行时不显示黑色控制台窗口
-3. **资源路径处理**：使用 `get_resource_path()` 函数自动处理开发环境和打包环境的路径差异
-4. **UPX压缩**：使用UPX压缩减小文件体积（如果系统中有UPX）
-
-## 注意事项
-
-1. **开发环境**：确保 `ffprobe.exe` 与程序文件在同一目录下
-2. **打包环境**：ffprobe.exe会自动打包到可执行文件中，无需手动复制
-3. 支持中文路径，无需担心路径编码问题
-4. 如果分析失败，程序会给出明确的错误提示
-5. 建议使用常见的音频格式以获得最佳兼容性
